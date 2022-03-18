@@ -313,7 +313,7 @@ tt <- tt %>% mutate(labels = plyr::mapvalues(parameter, from = c(
 
 ## graph raw time
 ggplot(tt, aes(param_value, time)) + 
-  geom_point(aes(color = as.factor(init))) + 
+  geom_point(aes(color = as.factor(init))) + geom_errorbar(aes(ymin = time-sd, ymax=time+sd)) +
   facet_grid(labels~as.factor(init)) + ggtitle("Time to equilibrium \n Base Value 0.1") +
   xlab("Parameter Value") + ylab("Timesteps to equilibrium")
 
@@ -332,7 +332,7 @@ ggplot(zz2, aes(param_value, abs(sens))) +
   geom_point(aes(color = as.factor(init))) + 
   facet_grid(parameter~as.factor(init), scales = "free") + 
   ggtitle("Sensitivity \n Base Value 0.5") +
-  xlab("Parameter Value") + ylab("Absolute Value Sensitivity")
+  xlab("Parameter Value") + ylab("Absolute Value Sensitivity") + scale_color_discrete("Initial Condition")
 
 ## graph distance (from initial starting) to equilibrium vs. mean time to equilibrium
 
@@ -471,7 +471,7 @@ for(k in 1:dim(trans3)[[6]]){  ## init conditions
 zz <- apply(avg_year, c(2,4), FUN = function(x) colMeans(x))
 
 ## add error? ## 100 repititions
-qq <- apply(avg_year, c(2,3,4), FUN = function(x) sd(x))
+
 
 qq <- apply(avg_year, c(3,2,4), FUN = function(x) sd(x))
 
@@ -504,7 +504,7 @@ tt <- tt %>% mutate(labels = plyr::mapvalues(parameter, from = c(
 
 ## graph raw time
 ggplot(tt, aes(param_value, time)) + 
-  geom_point(aes(color = as.factor(init))) + 
+  geom_point(aes(color = as.factor(init))) +  geom_errorbar(aes(ymin = time - sd, ymax = time + sd)) +
   facet_grid(labels~as.factor(init)) + ggtitle("Time to equilibrium \n Base Value 0.7") +
   xlab("Parameter Value") + ylab("Timesteps to equilibrium")
 
