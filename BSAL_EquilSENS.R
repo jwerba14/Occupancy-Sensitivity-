@@ -1,3 +1,5 @@
+library(tidyverse)
+
 params <- data.frame(params = c (  "c_H", "c_S", "phi_Hb", 
                                  "phi_Hs", "phi_HL", "e_S", "e_L", "g_S", "d_L" ),
                      upr = c(0.95,0.95,0.98,0.2,0.15,0.1,0.1,0.95,0.1 ),
@@ -11,6 +13,32 @@ params <- data.frame(params = c (  "c_H", "c_S", "phi_Hb",
                      lwr = c(0.2,0.2,0.2,0.001,0.001,0.001,0.001,0.2,0.001),
                      mode = c( 0.8,0.8,0.95,0.08,0.05,0.05,0.01,0.8,0.06 ))
 
+## from expert elicition (Bletz et al in review)
+bsal <- read.csv("BsalManagement_Parameter_MinMax.csv")
+bsal_base <- read.csv("BsalManagement_BaseRates.csv")
+
+params <- data.frame(params = c("c_H", "c_S", 
+                                "phi_Hb", "phi_Hs",
+                                "phi_HL", "e_S", 
+                                "e_L", "g_S", 
+                                "d_L" ),
+                     upr = c(bsal_base$q97.5.cor[which(bsal_base$Parameter == "cH")], bsal$Maxval[which(bsal$Parameter == "cS")],
+                             bsal$Maxval[which(bsal$Parameter == "phiHb")], bsal$Maxval[which(bsal$Parameter == "phiHS")],
+                             bsal$Maxval[which(bsal$Parameter == "phiHL")], bsal$Maxval[which(bsal$Parameter == "eS")],
+                             bsal$Maxval[which(bsal$Parameter == "eL")], bsal$Maxval[which(bsal$Parameter == "gS")],
+                             bsal$Maxval[which(bsal$Parameter == "dL")]),
+                     lwr = c(bsal_base$q2.5.cor[which(bsal_base$Parameter == "cH")], bsal$Minval[which(bsal$Parameter == "cS")],
+                             bsal$Minval[which(bsal$Parameter == "phiHb")], bsal$Minval[which(bsal$Parameter == "phiHS")],
+                             bsal$Minval[which(bsal$Parameter == "phiHL")], bsal$Minval[which(bsal$Parameter == "eS")],
+                             bsal$Minval[which(bsal$Parameter == "eL")], bsal$Minval[which(bsal$Parameter == "gS")],
+                             bsal$Minval[which(bsal$Parameter == "dL")]),
+                     mode = c(bsal_base$q50.cor[which(bsal_base$Parameter == "cH")], bsal_base$q50.cor[which(bsal_base$Parameter == "cS")],
+                              bsal_base$q50.cor[which(bsal_base$Parameter == "phiHb")], bsal_base$q50.cor[which(bsal_base$Parameter == "phiHS")],
+                              bsal_base$q50.cor[which(bsal_base$Parameter == "phiHL")], bsal$Meanq50[which(bsal$Parameter == "eS")],
+                              bsal$Meanq50[which(bsal$Parameter == "eL")], bsal$Meanq50[which(bsal$Parameter == "gS")],
+                              bsal$Meanq50[which(bsal$Parameter == "dL")])
+                     
+)
 
 # There are 6 states:
 # 1 = bh = No Bsal, no host

@@ -1,0 +1,23 @@
+File Descriptions:
+
+BsalManagement_BaseRates.csv - This file contains the median and 95% confidence interval for 
+the base rates, i.e. with no management, for each parameter. 
+Notes: cH estimates are generated from the autologistic function used in the occupancy model 
+(the alpha and beta of the autologic function were from thee JAGS model of CHOH data 
+and psi was 0.7 (which is the high occupancy scenario we used)).  All other parameters are
+expert elicited.
+
+BsalManagement_Parameter_MinMax.csv - This file contains for each parameter:
+a mean of the q50 values across all management actions, a minimum value which is the min
+value of the 2.5% quantile across all actions, and a maximum value which is the maximum 
+value of the 97.5 % quantile
+
+"cS"  = Bsal colonization
+"cH" = Host colonization ( this is only in the base rate file, because its not affected by management).
+"dL"  = decline from high Bsal to low Bsal
+"eL"  =  decline from high Bsal to no Bsal
+"eS" =   extinction from low Bsal to no Bsal
+"gS" = growth from low Bsal to high Bsal
+"phiHL" = Host persistence with high Bsal occupancy
+"phiHS" =  Host persistence with low Bsal occupancy
+"phiHb" = Host persistence with no BD 
