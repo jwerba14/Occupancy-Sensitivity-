@@ -1,8 +1,7 @@
 library(tidyverse)
 ## abiotic-biotic (moss) sensitivity 
-#setwd("C:/Users/jwerba/OneDrive - DOI/Desktop/SHENSAL_OUTPUT")
-out <- readRDS("params.RDS")
-out <- out %>% filter(model == "moss.Abiotic_Biotic", year == 15)
+out <- readRDS("params_moss_16.RDS")
+out <- out %>% filter(model == "moss.Abiotic_Biotic")
 
 
 
@@ -300,6 +299,7 @@ qq1 <- qq %>% group_by(param) %>% filter(env == 2, param %in% nd2$param)
     xlab("Parameter Values") + ylab("Occupancy")
 )
 
+
 q <- gridExtra::arrangeGrob(me2, mo2,
                             layout_matrix = matrix(c(1, 1, 1, 1, 2,2), byrow = T) )
 gridExtra::grid.arrange(q)
@@ -357,9 +357,7 @@ gridExtra::grid.arrange(q)
 
 
 ### abiotic-biotic RMI
-out <- readRDS("params.RDS")
-out <- out %>% filter(model == "Abiotic_Biotic", year == 15)
-
+out <-  readRDS("params_moss_16.RDS") %>% filter(model == "Abiotic_moss")
 
 
 #par.med <- out %>% group_by(param) %>% 
@@ -695,7 +693,7 @@ gridExtra::grid.arrange(q)
 
 
 ## abiotic moss
-out <- readRDS("params.RDS")
+
 out <- out %>% filter(model == "Abiotic_moss" , year == 15)
 
 
